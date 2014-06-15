@@ -27,7 +27,7 @@ public class TipActivity extends Activity {
 
 	private EditText etBillAmount;
 	private TextView tvTipAmount;
-	private Button bnPct10, bnPct15, bnPct20;
+	private Button btnPct10, btnPct15, btnPct20;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,39 +37,9 @@ public class TipActivity extends Activity {
 		etBillAmount = (EditText) findViewById(R.id.et_amount);
 		tvTipAmount = (TextView) findViewById(R.id.tv_tip_amount);
 
-		bnPct10 = (Button) findViewById(R.id.btn_pct10);
-		bnPct15 = (Button) findViewById(R.id.btn_pct15);
-		bnPct20 = (Button) findViewById(R.id.btn_pct20);
-
-		// calculate 10% tip
-		bnPct10.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d(TAG, "onClick-10% button");
-				processTipPercent(PCT10); // need to divide by 100
-				displayTipAmount();
-			}
-		});
-
-		// calculate 15% tip
-		bnPct15.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d(TAG, "onClick-15% button");
-				processTipPercent(PCT15); // need to divide by 100
-				displayTipAmount();
-			}
-		});
-
-		// calculate 20% tip
-		bnPct20.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d(TAG, "onClick-20% button");
-				processTipPercent(PCT20); // need to divide by 100
-				displayTipAmount();
-			}
-		});
+//		btnPct10 = (Button) findViewById(R.id.btn_pct10);
+//		btnPct15 = (Button) findViewById(R.id.btn_pct15);
+//		btnPct20 = (Button) findViewById(R.id.btn_pct20);
 
 		// if (savedInstanceState == null) {
 		// getSupportFragmentManager().beginTransaction()
@@ -77,7 +47,34 @@ public class TipActivity extends Activity {
 		// .commit();
 		// }
 	}
+ 
+	// *************calculateTip(View v)**********************************
+	// this calculateTip() is specified in activity_tip.xml in the android:onClick attribute
+    //android:onClick="calculateTip" 
+	
+	public void calculateTip(View v) {
+		Log.d(TAG, "calculateTip(View v)");
 
+		switch (v.getId()) {
+		case R.id.btn_pct10:
+			Log.d(TAG, "onClick-10% button");
+			processTipPercent(PCT10); // need to divide by 100
+			displayTipAmount();
+			break;
+		case R.id.btn_pct15:
+			Log.d(TAG, "onClick-15% button");
+			processTipPercent(PCT15); // need to divide by 100
+			displayTipAmount();
+			break;
+		case R.id.btn_pct20:
+			Log.d(TAG, "onClick-20% button");
+			processTipPercent(PCT20); // need to divide by 100
+			displayTipAmount();
+			break;
+		}
+	}
+	
+	// *************processTipPercent(int pct)**********************************
 	private void processTipPercent(int pct) {
 		Log.d(TAG, "processPennyConversion");
 		String s = etBillAmount.getText().toString();
@@ -126,23 +123,6 @@ public class TipActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_tip, container,
-					false);
-			return rootView;
-		}
 	}
 
 }
